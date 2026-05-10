@@ -213,7 +213,7 @@ export default function AppointmentsPage() {
         </Button>
       </div>
 
-      <div className="grid gap-3 rounded-xl border border-neutral-200 bg-white p-3 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 md:grid-cols-4">
+      <div className="premium-card grid gap-3 rounded-[1.25rem] p-3 md:grid-cols-4">
         <div className="col-span-2 flex items-center gap-2">
           <Button size="sm" variant="subtle" onClick={() => moveDay(-1)}>
             <ChevronLeft className="h-4 w-4" />
@@ -257,32 +257,32 @@ export default function AppointmentsPage() {
       </div>
 
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-        <div className="rounded-lg border border-neutral-200 bg-white px-3 py-2 dark:border-neutral-800 dark:bg-neutral-900">
+        <div className="premium-card rounded-xl px-3 py-2">
           <p className="text-[11px] uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Total</p>
           <p className="text-lg font-semibold text-neutral-900 dark:text-white">{summary.total}</p>
         </div>
-        <div className="rounded-lg border border-sky-200 bg-sky-50/70 px-3 py-2 dark:border-sky-900/60 dark:bg-sky-950/20">
-          <p className="text-[11px] uppercase tracking-wide text-sky-700 dark:text-sky-300">Confirmadas</p>
-          <p className="text-lg font-semibold text-sky-800 dark:text-sky-200">{summary.confirmed}</p>
+        <div className="rounded-xl border border-neutral-300/70 bg-neutral-100/70 px-3 py-2 dark:border-white/10 dark:bg-white/[0.04]">
+          <p className="text-[11px] uppercase tracking-wide text-neutral-600 dark:text-neutral-300">Confirmadas</p>
+          <p className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">{summary.confirmed}</p>
         </div>
-        <div className="rounded-lg border border-amber-200 bg-amber-50/70 px-3 py-2 dark:border-amber-900/60 dark:bg-amber-950/20">
+        <div className="rounded-xl border border-primary/30 bg-primary/10 px-3 py-2">
           <p className="text-[11px] uppercase tracking-wide text-amber-700 dark:text-amber-300">Pendientes</p>
           <p className="text-lg font-semibold text-amber-800 dark:text-amber-200">{summary.pending}</p>
         </div>
-        <div className="rounded-lg border border-emerald-200 bg-emerald-50/70 px-3 py-2 dark:border-emerald-900/60 dark:bg-emerald-950/20">
+        <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 px-3 py-2">
           <p className="text-[11px] uppercase tracking-wide text-emerald-700 dark:text-emerald-300">Completadas</p>
           <p className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">{summary.completed}</p>
         </div>
       </div>
 
-      <div className="rounded-xl border border-indigo-200 bg-indigo-50/70 p-3 dark:border-indigo-900/50 dark:bg-indigo-950/20">
+      <div className="premium-card rounded-[1.25rem] p-3">
         <div className="mb-2 flex items-center gap-2">
-          <WandSparkles className="h-4 w-4 text-primary dark:text-indigo-300" />
-          <p className="text-sm font-semibold text-indigo-800 dark:text-indigo-200">Asistente operativo</p>
+          <WandSparkles className="h-4 w-4 text-primary" />
+          <p className="text-sm font-semibold text-foreground">Asistente operativo</p>
         </div>
         <div className="grid gap-2 md:grid-cols-3">
           {assistantTips.map((tip) => (
-            <div key={tip} className="rounded-lg border border-indigo-200/70 bg-white/90 px-3 py-2 text-xs text-indigo-700 dark:border-indigo-900/60 dark:bg-indigo-950/30 dark:text-indigo-200">
+            <div key={tip} className="rounded-lg border border-border/70 bg-muted/45 px-3 py-2 text-xs text-muted-foreground">
               {tip}
             </div>
           ))}
@@ -320,7 +320,7 @@ export default function AppointmentsPage() {
           <p className="mt-1 text-xs text-red-600 dark:text-red-400/90">{error}</p>
         </div>
       ) : appointments.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-neutral-300 bg-white py-16 dark:border-neutral-800 dark:bg-neutral-900/50">
+        <div className="premium-card flex flex-col items-center justify-center rounded-[1.25rem] border-dashed py-16">
           <CalendarDays className="mb-3 h-10 w-10 text-neutral-400 dark:text-neutral-700" />
           <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">Sin citas registradas</p>
           <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-600">Crea la primera cita para comenzar</p>
@@ -350,7 +350,7 @@ export default function AppointmentsPage() {
       )}
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <section className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+        <section className="premium-card rounded-[1.25rem] p-4">
           <div className="mb-3 flex items-center gap-2">
             <Lock className="h-4 w-4 text-neutral-500" />
             <h2 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Bloqueos de agenda</h2>
@@ -408,7 +408,7 @@ export default function AppointmentsPage() {
           </div>
         </section>
 
-        <section className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+        <section className="premium-card rounded-[1.25rem] p-4">
           <div className="mb-3 flex items-center gap-2">
             <Users className="h-4 w-4 text-neutral-500" />
             <h2 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Lista de espera</h2>

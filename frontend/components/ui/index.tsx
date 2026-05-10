@@ -19,8 +19,8 @@ export function Card({ children, className, hover = false }: CardProps) {
   return (
     <div
       className={cn(
-        "rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm p-5",
-        hover && "transition-colors duration-200 hover:border-blue-500/30 hover:shadow-md cursor-pointer",
+        "premium-card rounded-xl p-5",
+        hover && "transition-colors duration-200 hover:border-primary/30 hover:shadow-md cursor-pointer",
         className,
       )}
     >
@@ -43,8 +43,8 @@ const badgeVariants: Record<BadgeVariant, string> = {
   success: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/25",
   warning: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/25",
   error: "bg-red-50 text-red-700 border-red-200 dark:bg-red-500/15 dark:text-red-300 dark:border-red-500/25",
-  info: "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-500/25",
-  indigo: "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-300 dark:border-indigo-500/25",
+  info: "bg-neutral-100 text-neutral-700 border-neutral-200 dark:bg-white/[0.08] dark:text-neutral-200 dark:border-white/10",
+  indigo: "bg-primary/10 text-primary border-primary/25 dark:bg-primary/15 dark:text-primary dark:border-primary/25",
 };
 
 export function Badge({ children, variant = "default", className }: BadgeProps) {
@@ -172,3 +172,4 @@ export function Skeleton({ className }: { className?: string }) {
     <div className={cn("animate-pulse rounded-md bg-muted", className)} />
   );
 }
+

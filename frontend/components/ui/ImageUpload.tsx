@@ -112,8 +112,8 @@ export function ImageUpload({
           className={cn(
             "flex flex-1 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed px-4 py-6 text-center transition-colors",
             dragOver
-              ? "border-indigo-400 bg-indigo-50 dark:bg-indigo-500/10"
-              : "border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 hover:border-indigo-400 hover:bg-primary/10/50 dark:hover:bg-primary/5",
+              ? "border-primary/35 bg-primary/10 dark:bg-primary/10"
+              : "border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 hover:border-primary/35 hover:bg-primary/10/50 dark:hover:bg-primary/5",
             uploading && "pointer-events-none opacity-60",
           )}
         >
@@ -140,5 +140,6 @@ export function ImageUpload({
     </div>
   );
 }
+
 
 

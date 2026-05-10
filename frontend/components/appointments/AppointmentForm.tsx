@@ -374,7 +374,7 @@ export function AppointmentForm({ onSuccess, defaultDate }: Props) {
                   }}
                   className="flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
                 >
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-primary dark:bg-indigo-500/20 dark:text-primary">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary dark:bg-primary/15 dark:text-primary">
                     <User className="h-4 w-4" />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -419,14 +419,14 @@ export function AppointmentForm({ onSuccess, defaultDate }: Props) {
                   onClick={() => setValue("barberId", b.id, { shouldValidate: true })}
                   className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium transition-all ${
                     isSelected
-                      ? "border-indigo-500 bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-white"
+                      ? "border-primary bg-primary/10 text-primary dark:bg-primary/10 dark:text-white"
                       : "border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-neutral-600"
                   }`}
                 >
                   <span
                     className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold ${
                       isSelected
-                        ? "bg-indigo-500 text-white"
+                        ? "bg-primary text-white"
                         : "bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300"
                     }`}
                   >
@@ -437,7 +437,7 @@ export function AppointmentForm({ onSuccess, defaultDate }: Props) {
                     <span className="text-xs opacity-60">· {b.specialty}</span>
                   )}
                   {isSelected && (
-                    <CheckCircle className="h-3.5 w-3.5 text-indigo-500 dark:text-primary" />
+                    <CheckCircle className="h-3.5 w-3.5 text-primary dark:text-primary" />
                   )}
                 </button>
               );
@@ -461,10 +461,10 @@ export function AppointmentForm({ onSuccess, defaultDate }: Props) {
             className={`flex items-center gap-2 rounded-xl border bg-white px-3 py-2.5 dark:bg-neutral-900 ${
               errors.appointmentDate
                 ? "border-red-400 dark:border-red-500/50"
-                : "border-neutral-300 focus-within:ring-2 focus-within:ring-indigo-500/40 dark:border-neutral-700"
+                : "border-neutral-300 focus-within:ring-2 focus-within:ring-primary/35 dark:border-neutral-700"
             }`}
           >
-            <Calendar className="h-4 w-4 flex-shrink-0 text-indigo-500" />
+            <Calendar className="h-4 w-4 flex-shrink-0 text-primary" />
             <input
               {...register("appointmentDate")}
               type="date"
@@ -486,10 +486,10 @@ export function AppointmentForm({ onSuccess, defaultDate }: Props) {
             className={`flex items-center gap-2 rounded-xl border bg-white px-3 py-2.5 dark:bg-neutral-900 ${
               errors.startTime
                 ? "border-red-400 dark:border-red-500/50"
-                : "border-neutral-300 focus-within:ring-2 focus-within:ring-indigo-500/40 dark:border-neutral-700"
+                : "border-neutral-300 focus-within:ring-2 focus-within:ring-primary/35 dark:border-neutral-700"
             }`}
           >
-            <Clock className="h-4 w-4 flex-shrink-0 text-indigo-500" />
+            <Clock className="h-4 w-4 flex-shrink-0 text-primary" />
             <input
               {...register("startTime")}
               type="time"
@@ -504,7 +504,7 @@ export function AppointmentForm({ onSuccess, defaultDate }: Props) {
         </div>
       </div>
 
-      <div className="rounded-lg border border-indigo-200 bg-indigo-50/70 px-3 py-2 text-xs text-indigo-700 dark:border-indigo-900/50 dark:bg-indigo-950/20 dark:text-indigo-200">
+      <div className="rounded-lg border border-primary/25 bg-primary/10/70 px-3 py-2 text-xs text-primary dark:border-primary/25 dark:bg-primary/10 dark:text-primary">
         <div className="flex items-center justify-between gap-2">
           <span>
             {loadingSuggestions
@@ -515,7 +515,7 @@ export function AppointmentForm({ onSuccess, defaultDate }: Props) {
             <button
               type="button"
               onClick={() => setValue("startTime", suggestedTime, { shouldValidate: true })}
-              className="rounded-md border border-indigo-300 bg-white px-2 py-1 text-[11px] font-semibold text-indigo-700 hover:bg-indigo-100 dark:border-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-200"
+              className="rounded-md border border-primary/35 bg-white px-2 py-1 text-[11px] font-semibold text-primary hover:bg-primary/10 dark:border-primary/35 dark:bg-primary/10 dark:text-primary"
             >
               Aplicar {suggestedTime}
             </button>
@@ -544,7 +544,7 @@ export function AppointmentForm({ onSuccess, defaultDate }: Props) {
                   onClick={() => setValue("serviceId", s.id, { shouldValidate: true })}
                   className={`flex w-full items-center justify-between rounded-xl border-2 p-3 text-left transition-all ${
                     isSelected
-                      ? "border-indigo-400 bg-indigo-50 dark:border-indigo-500/60 dark:bg-indigo-500/10"
+                      ? "border-primary/35 bg-primary/10 dark:border-primary/60 dark:bg-primary/10"
                       : "border-transparent bg-neutral-50 hover:border-neutral-300 dark:bg-neutral-800/60 dark:hover:border-neutral-700"
                   }`}
                 >
@@ -552,7 +552,7 @@ export function AppointmentForm({ onSuccess, defaultDate }: Props) {
                     <div
                       className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${
                         isSelected
-                          ? "bg-indigo-100 text-primary dark:bg-indigo-500/20 dark:text-primary"
+                          ? "bg-primary/10 text-primary dark:bg-primary/15 dark:text-primary"
                           : "bg-neutral-200 text-neutral-500 dark:bg-neutral-700 dark:text-neutral-400"
                       }`}
                     >
@@ -562,7 +562,7 @@ export function AppointmentForm({ onSuccess, defaultDate }: Props) {
                       <p
                         className={`text-sm font-semibold ${
                           isSelected
-                            ? "text-indigo-700 dark:text-white"
+                            ? "text-primary dark:text-white"
                             : "text-neutral-700 dark:text-neutral-200"
                         }`}
                       >
@@ -582,7 +582,7 @@ export function AppointmentForm({ onSuccess, defaultDate }: Props) {
                       {formatCurrency(s.price, currency)}
                     </span>
                     {isSelected && (
-                      <CheckCircle className="h-4 w-4 fill-current text-indigo-500 dark:text-primary" />
+                      <CheckCircle className="h-4 w-4 fill-current text-primary dark:text-primary" />
                     )}
                   </div>
                 </button>
@@ -652,4 +652,6 @@ export function AppointmentForm({ onSuccess, defaultDate }: Props) {
     </form>
   );
 }
+
+
 

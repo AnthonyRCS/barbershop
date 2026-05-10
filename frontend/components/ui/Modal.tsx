@@ -53,7 +53,7 @@ export function Modal({ isOpen, onClose, title, children, footer, size = "md" }:
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/56 backdrop-blur-[2px] transition-opacity"
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -61,7 +61,7 @@ export function Modal({ isOpen, onClose, title, children, footer, size = "md" }:
       {/* Panel */}
       <div
         className={cn(
-          "relative z-10 animate-slide-in overflow-hidden border border-neutral-200 bg-white shadow-2xl shadow-black/25 dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-black/60",
+          "premium-card relative z-10 animate-slide-in overflow-hidden shadow-2xl shadow-black/25 dark:shadow-black/70",
           "w-full sm:w-full",
           "rounded-t-[1.75rem] sm:rounded-2xl",
           "max-h-[calc(100dvh-0.5rem)] sm:max-h-[90dvh]",
@@ -74,11 +74,11 @@ export function Modal({ isOpen, onClose, title, children, footer, size = "md" }:
         <div className="mx-auto mb-1.5 mt-3 h-1 w-10 rounded-full bg-neutral-300 dark:bg-neutral-700 sm:hidden" />
 
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4 dark:border-neutral-800 sm:px-6">
+        <div className="flex items-center justify-between border-b border-border/70 bg-muted/20 px-5 py-4 sm:px-6">
           <h2 className="text-base font-semibold tracking-tight text-neutral-950 dark:text-white sm:text-lg">{title}</h2>
           <button
             onClick={onClose}
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 transition-colors active:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:active:bg-neutral-700"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 transition-colors hover:bg-neutral-200 active:bg-neutral-200 dark:bg-white/[0.08] dark:text-neutral-300 dark:hover:bg-white/[0.12] dark:active:bg-white/[0.14]"
             aria-label="Cerrar"
             type="button"
           >
@@ -93,7 +93,7 @@ export function Modal({ isOpen, onClose, title, children, footer, size = "md" }:
 
         {/* Footer */}
         {footer ? (
-          <div className="flex justify-end gap-3 border-t border-neutral-200 bg-white px-5 py-4 dark:border-neutral-800 dark:bg-neutral-950 sm:px-6">
+          <div className="flex justify-end gap-3 border-t border-border/70 bg-muted/20 px-5 py-4 sm:px-6">
             {footer}
           </div>
         ) : null}

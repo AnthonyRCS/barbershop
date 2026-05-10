@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { BadgeDollarSign, Clock3, Phone, Scissors, UserRound } from "lucide-react";
 import { Badge } from "@/components/ui";
@@ -19,7 +19,7 @@ const statusConfig: Record<
 
 const statusBorder: Record<AppointmentStatus, string> = {
   PENDING: "border-l-amber-500",
-  CONFIRMED: "border-l-sky-500",
+  CONFIRMED: "border-l-neutral-400",
   COMPLETED: "border-l-emerald-500",
   CANCELLED: "border-l-zinc-500",
   NO_SHOW: "border-l-red-500",
@@ -96,3 +96,4 @@ export function AppointmentCard({
     </div>
   );
 }
+

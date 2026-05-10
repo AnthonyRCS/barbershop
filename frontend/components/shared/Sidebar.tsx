@@ -99,7 +99,7 @@ const roleLabel: Record<Role, string> = {
 const roleColors: Record<Role, string> = {
   OWNER: "bg-gradient-to-br from-primary to-amber-500 text-primary-foreground",
   ADMIN: "bg-gradient-to-br from-primary to-amber-500 text-primary-foreground",
-  BARBER: "bg-gradient-to-br from-blue-600 to-cyan-500 text-white",
+  BARBER: "bg-gradient-to-br from-neutral-900 to-neutral-600 text-white dark:from-primary dark:to-amber-500 dark:text-primary-foreground",
   RECEPTIONIST: "bg-gradient-to-br from-emerald-600 to-teal-500 text-white",
 };
 
@@ -122,7 +122,7 @@ export function Sidebar({
   const firstName = user?.name?.split(" ")[0] || "Usuario";
   const role = user?.role as Role;
   const effectiveRole = roleLabel[role] ?? role ?? "Usuario";
-  const iconColor = roleColors[role] ?? "bg-blue-600";
+  const iconColor = roleColors[role] ?? "bg-gradient-to-br from-neutral-900 to-neutral-600 text-white";
 
   // Filter nav items by permissions (fallback to legacy role for old sessions)
   const permissions = user?.permissions ?? [];

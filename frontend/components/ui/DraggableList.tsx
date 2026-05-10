@@ -79,7 +79,7 @@ export default function DraggableList<T extends { id: string }>({
               "flex items-center gap-2 transition-all select-none",
               isDragging ? "opacity-40 scale-95" : "opacity-100",
               isOver
-                ? "border-t-2 border-blue-500 dark:border-blue-400"
+                ? "border-t-2 border-primary"
                 : "border-t-2 border-transparent",
               itemClassName,
             ].join(" ")}
@@ -99,3 +99,4 @@ export default function DraggableList<T extends { id: string }>({
     </div>
   );
 }
+

@@ -304,7 +304,7 @@ export function AppointmentTable({ appointments, onChanged }: AppointmentTablePr
       >
         <div className="space-y-3">
           {rescheduleTarget ? (
-            <p className="rounded-md border border-indigo-500/30 bg-indigo-500/10 px-3 py-2 text-xs text-indigo-200">
+            <p className="rounded-md border border-primary/30 bg-primary/10 px-3 py-2 text-xs text-primary">
               Sugerido por sistema:{" "}
               {format(buildSuggestion(rescheduleTarget).start, "HH:mm")} - {format(buildSuggestion(rescheduleTarget).end, "HH:mm")}{" "}
               ({buildSuggestion(rescheduleTarget).duration} min aprox)
@@ -382,3 +382,4 @@ export function AppointmentTable({ appointments, onChanged }: AppointmentTablePr
     </div>
   );
 }
+

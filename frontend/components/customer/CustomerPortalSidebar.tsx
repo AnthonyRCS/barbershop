@@ -18,7 +18,7 @@ interface StatCardProps {
 
 function StatCard({ label, value, hint, valueClassName }: StatCardProps) {
   return (
-    <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/60 p-3 backdrop-blur-sm">
+    <div className="rounded-2xl border border-white/10 bg-white/[0.055] p-3 backdrop-blur-sm">
       <p className="text-[11px] uppercase tracking-[0.14em] text-zinc-500">{label}</p>
       <p className={`mt-1 text-lg font-bold ${valueClassName ?? "text-zinc-100"}`}>{value}</p>
       <p className="text-[11px] text-zinc-500">{hint}</p>
@@ -47,15 +47,15 @@ export function CustomerPortalSidebar({
           label="Confirmadas"
           value={confirmedAppointments}
           hint="Listas para asistir"
-          valueClassName="text-cyan-200"
+          valueClassName="text-emerald-200"
         />
       </div>
 
-      <div className="rounded-3xl border border-cyan-500/20 bg-cyan-500/5 p-4">
+      <div className="rounded-3xl border border-primary/25 bg-primary/10 p-4">
         <div className="flex items-start gap-2.5">
-          <ClipboardList className="mt-0.5 h-4 w-4 text-cyan-300" />
+          <ClipboardList className="mt-0.5 h-4 w-4 text-primary" />
           <div>
-            <p className="text-sm font-semibold text-cyan-100">Como agendar rapido</p>
+            <p className="text-sm font-semibold text-zinc-100">Como agendar rapido</p>
             <p className="mt-1 text-xs text-zinc-300">
               1) Elige barberia, 2) selecciona servicio y barbero, 3) toca un horario libre y confirma tu cita.
             </p>

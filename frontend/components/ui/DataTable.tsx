@@ -179,7 +179,7 @@ function ColumnFilterMenu({ col, items, filterState, setFilterState, getFilterVa
         }}
         className={`p-0.5 rounded transition-all duration-150 ${
           isFiltered
-            ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/20"
+            ? "text-primary bg-primary/10"
             : "text-neutral-300 dark:text-neutral-600 hover:text-neutral-500 dark:hover:text-neutral-300 group-hover:opacity-100 opacity-40"
         }`}
         title={isFiltered ? "Filtro activo — click para editar" : "Filtrar columna"}
@@ -221,7 +221,7 @@ function ColumnFilterMenu({ col, items, filterState, setFilterState, getFilterVa
                 type="checkbox"
                 checked={allFilteredSelected}
                 onChange={toggleAll}
-                className="w-3.5 h-3.5 rounded border-neutral-300 dark:border-neutral-500 text-blue-600"
+                className="w-3.5 h-3.5 rounded border-neutral-300 dark:border-neutral-500 text-primary"
                 onClick={(e) => e.stopPropagation()}
               />
               <span className="text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wide">
@@ -242,7 +242,7 @@ function ColumnFilterMenu({ col, items, filterState, setFilterState, getFilterVa
                   type="checkbox"
                   checked={selected.has(val)}
                   onChange={() => toggleValue(val)}
-                  className="w-3.5 h-3.5 rounded border-neutral-300 dark:border-neutral-500 text-blue-600 flex-shrink-0"
+                  className="w-3.5 h-3.5 rounded border-neutral-300 dark:border-neutral-500 text-primary flex-shrink-0"
                   onClick={(e) => e.stopPropagation()}
                 />
                 <span className="text-xs text-neutral-700 dark:text-neutral-200 truncate">
@@ -267,8 +267,7 @@ function ColumnFilterMenu({ col, items, filterState, setFilterState, getFilterVa
                   setFilterState(null);
                   setOpen(false);
                 }}
-                className="w-full text-xs font-medium text-blue-600 dark:text-blue-400
-                  hover:text-blue-700 dark:hover:text-blue-300 text-left transition-colors"
+                className="w-full text-xs font-medium text-primary hover:text-primary/80 text-left transition-colors"
               >
                 Limpiar filtro
               </button>
@@ -609,7 +608,7 @@ export default function DataTable(props: any) {
               </span>
               {activeFilterCount > 0 && (
                 <>
-                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[11px] font-semibold bg-primary/10 text-primary border border-primary/25">
                     <Filter className="w-2.5 h-2.5" />
                     {activeFilterCount} {activeFilterCount === 1 ? "filtro" : "filtros"}
                   </span>
@@ -657,7 +656,7 @@ export default function DataTable(props: any) {
                   {/* Header */}
                   <div className="flex items-center justify-between px-3 py-2.5 border-b border-neutral-100 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/50">
                     <div className="flex items-center gap-2">
-                      <Columns3 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                      <Columns3 className="w-3.5 h-3.5 text-primary" />
                       <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-200 uppercase tracking-wide">
                         Columnas
                       </span>
@@ -668,14 +667,14 @@ export default function DataTable(props: any) {
                     <button
                       onClick={resetCols}
                       title="Restablecer columnas"
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] text-neutral-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 dark:hover:text-blue-400 transition-colors"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] text-neutral-500 hover:text-primary hover:bg-primary/10 transition-colors"
                     >
                       <RotateCcw className="w-3 h-3" /> Resetear
                     </button>
                   </div>
                   {/* Info hint */}
-                  <div className="px-3 py-1.5 bg-primary/10 dark:bg-primary/12 border-b border-blue-100 dark:border-blue-900/30 flex items-center gap-1.5">
-                    <span className="text-[10px] text-blue-600 dark:text-blue-400">
+                  <div className="px-3 py-1.5 bg-primary/10 dark:bg-primary/12 border-b border-primary/20 flex items-center gap-1.5">
+                    <span className="text-[10px] text-primary">
                       Arrastra para reordenar · selecciona para mostrar en tabla y exportar
                     </span>
                   </div>
@@ -700,7 +699,7 @@ export default function DataTable(props: any) {
                           onChange={() => toggleCol(colItem.id)}
                           onClick={(e) => e.stopPropagation()}
                           disabled={colItem.fixed}
-                          className="w-3.5 h-3.5 rounded border-neutral-300 text-blue-600 cursor-pointer flex-shrink-0 disabled:cursor-not-allowed"
+                          className="w-3.5 h-3.5 rounded border-neutral-300 text-primary cursor-pointer flex-shrink-0 disabled:cursor-not-allowed"
                         />
                         <span className="flex-1 text-xs text-neutral-700 dark:text-neutral-300">
                           {colItem.label}
@@ -737,7 +736,7 @@ export default function DataTable(props: any) {
       <div ref={scrollRef} className="flex-1 overflow-auto relative">
         {/* Progress bar during refetch */}
         {loading && filteredData.length > 0 && (
-          <div className="sticky top-0 left-0 right-0 z-20 h-0.5 bg-blue-500/80 animate-pulse pointer-events-none" />
+          <div className="sticky top-0 left-0 right-0 z-20 h-0.5 bg-primary/80 animate-pulse pointer-events-none" />
         )}
 
         {/* Close col menu on outside click */}
@@ -757,7 +756,7 @@ export default function DataTable(props: any) {
                       if (el) el.indeterminate = !allSelected && someSelected;
                     }}
                     onChange={toggleAll}
-                    className="w-3.5 h-3.5 rounded border-neutral-300 text-blue-600 cursor-pointer"
+                    className="w-3.5 h-3.5 rounded border-neutral-300 text-primary cursor-pointer"
                   />
                 </th>
               )}
@@ -793,9 +792,9 @@ export default function DataTable(props: any) {
                         <span className="opacity-60">
                           {sortConfig.key === col.key ? (
                             sortConfig.dir === "asc" ? (
-                              <ArrowUp className="w-3 h-3 text-blue-600 dark:text-blue-400" />
+                              <ArrowUp className="w-3 h-3 text-primary" />
                             ) : (
-                              <ArrowDown className="w-3 h-3 text-blue-600 dark:text-blue-400" />
+                              <ArrowDown className="w-3 h-3 text-primary" />
                             )
                           ) : (
                             <ArrowUpDown className="w-3 h-3 opacity-0 group-hover:opacity-40" />
@@ -854,9 +853,9 @@ export default function DataTable(props: any) {
                 >
                   {activeFilterCount > 0 && sortedData.length > 0 ? (
                     <div className="flex flex-col items-center gap-2 py-12">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
-                        <Filter className="w-3.5 h-3.5 text-blue-500" />
-                        <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 border border-primary/25">
+                        <Filter className="w-3.5 h-3.5 text-primary" />
+                        <span className="text-sm font-medium text-primary">
                           {activeFilterCount} filtro{activeFilterCount !== 1 ? "s" : ""} de columna activo{activeFilterCount !== 1 ? "s" : ""}
                         </span>
                       </div>
@@ -865,7 +864,7 @@ export default function DataTable(props: any) {
                         <button
                           type="button"
                           onClick={() => setFilterState({})}
-                          className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                          className="text-primary hover:underline font-medium"
                         >
                           Limpiar filtros
                         </button>
@@ -996,7 +995,7 @@ export default function DataTable(props: any) {
                           colSpan={colSpan}
                           className="bg-neutral-50/70 dark:bg-neutral-900/60 px-6 py-4"
                         >
-                          <div className="border-l-2 border-blue-400/50 dark:border-blue-600/40 pl-4">
+                          <div className="border-l-2 border-primary/45 pl-4">
                             {expandContent}
                           </div>
                         </td>
@@ -1105,7 +1104,7 @@ export default function DataTable(props: any) {
                   disabled={loading}
                   className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors ${
                     pg === page
-                      ? "bg-blue-600 text-white shadow-sm"
+                      ? "bg-primary text-primary-foreground shadow-sm"
                       : "hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400"
                   }`}
                 >
@@ -1172,5 +1171,7 @@ export default function DataTable(props: any) {
     </div>
   );
 }
+
+
 
 
