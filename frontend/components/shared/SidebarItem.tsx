@@ -75,7 +75,7 @@ export function SidebarItem({
       onMouseLeave={() => isCollapsed && setIsHovering(false)}
     >
       {(isActive || hasActiveChild) && !disabled && !isCollapsed && (
-        <span className="absolute left-0 top-1/2 h-7 w-1 -translate-y-1/2 rounded-r-full bg-blue-500 shadow-lg" />
+        <span className="absolute left-0 top-1/2 h-7 w-1 -translate-y-1/2 rounded-r-full bg-primary shadow-lg shadow-primary/30" />
       )}
       <Link
         href={(effectiveSubItems.length > 0 || disabled ? "#" : href || "#") as any}
@@ -86,8 +86,8 @@ export function SidebarItem({
           disabled
             ? "text-neutral-400 dark:text-neutral-600 opacity-60 cursor-not-allowed"
             : isActive || hasActiveChild
-            ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg"
-            : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800/80 hover:translate-x-0.5",
+            ? "bg-gradient-to-r from-primary to-amber-500 text-primary-foreground shadow-lg shadow-primary/20"
+            : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100/80 dark:hover:bg-white/[0.07] hover:translate-x-0.5",
           isCollapsed && "justify-center px-2.5 py-2.5"
         )}
         aria-label={label}
@@ -101,7 +101,7 @@ export function SidebarItem({
               disabled
                 ? "text-neutral-400 dark:text-neutral-600"
                 : isActive || hasActiveChild
-                ? "text-white"
+                ? "text-primary-foreground"
                 : "text-neutral-600 dark:text-neutral-400"
             )}
             strokeWidth={isActive || hasActiveChild ? 2 : 1.5}
@@ -113,7 +113,7 @@ export function SidebarItem({
             <span
               className={cn(
                 "flex-grow text-sm font-medium",
-                (isActive || hasActiveChild) ? "text-white" : ""
+                (isActive || hasActiveChild) ? "text-primary-foreground" : ""
               )}
             >
               {label}
@@ -127,7 +127,7 @@ export function SidebarItem({
                       disabled
                         ? "text-neutral-400 dark:text-neutral-600"
                         : isActive || hasActiveChild
-                        ? "text-white"
+                        ? "text-primary-foreground"
                         : "text-neutral-600 dark:text-neutral-400"
                     )}
                   />
@@ -138,7 +138,7 @@ export function SidebarItem({
                       disabled
                         ? "text-neutral-400 dark:text-neutral-600"
                         : isActive || hasActiveChild
-                        ? "text-white"
+                        ? "text-primary-foreground"
                         : "text-neutral-600 dark:text-neutral-400"
                     )}
                   />
@@ -194,7 +194,7 @@ export function SidebarItem({
                   subDisabled
                     ? "opacity-60 cursor-not-allowed text-neutral-400 dark:text-neutral-600"
                     : isSubItemActive
-                    ? "bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-300 font-bold"
+                    ? "bg-primary/10 text-primary dark:bg-primary/15 dark:text-primary font-bold"
                     : "text-neutral-600 dark:text-neutral-400"
                 )}
                 aria-disabled={subDisabled}
@@ -206,7 +206,7 @@ export function SidebarItem({
                       subDisabled
                         ? "text-neutral-400 dark:text-neutral-600"
                         : isSubItemActive
-                        ? "text-blue-600 dark:text-blue-400"
+                        ? "text-primary"
                         : "text-neutral-500 dark:text-neutral-500"
                     )}
                   />
@@ -245,7 +245,7 @@ export function SidebarItem({
                   subDisabled
                     ? "opacity-60 cursor-not-allowed text-neutral-400 dark:text-neutral-600"
                     : isSubItemActive
-                    ? "text-blue-600 dark:text-blue-400 font-bold"
+                    ? "text-primary font-bold"
                     : "text-neutral-700 dark:text-neutral-300"
                 )}
                 aria-disabled={subDisabled}
@@ -257,7 +257,7 @@ export function SidebarItem({
                       subDisabled
                         ? "text-neutral-400 dark:text-neutral-600"
                         : isSubItemActive
-                        ? "text-blue-600 dark:text-blue-400"
+                        ? "text-primary"
                         : "text-neutral-500 dark:text-neutral-400"
                     )}
                   />

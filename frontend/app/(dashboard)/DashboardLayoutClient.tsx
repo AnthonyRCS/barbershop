@@ -67,7 +67,7 @@ export function DashboardLayoutClient({ children, user: serverUser }: { children
 
   return (
     <CurrencyProvider>
-    <div className="flex h-[100dvh] min-h-[100svh] overflow-hidden bg-neutral-50 dark:bg-neutral-950">
+    <div className="premium-shell flex h-[100dvh] min-h-[100svh] overflow-hidden bg-transparent">
       <TokenRefresher />
       {/* Desktop Sidebar */}
       <div className="hidden lg:block z-50">

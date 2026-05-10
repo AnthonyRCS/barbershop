@@ -568,9 +568,9 @@ export default function DataTable(props: any) {
 
   // ── Render ───────────────────────────────────────────────────────────────────
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full flex-col bg-transparent">
       {/* ── Toolbar ─────────────────────────────────────────────────────────── */}
-      <div className="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex-wrap gap-y-2">
+      <div className="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-border/70 bg-white/65 backdrop-blur-xl dark:bg-white/[0.03] flex-wrap gap-y-2">
         <div className="flex items-center gap-2 flex-wrap">
           {/* Bulk selection info */}
           {selectable && someSelected ? (
@@ -636,13 +636,13 @@ export default function DataTable(props: any) {
               title="Configurar columnas visibles y de exportación"
               className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium border transition-all ${
                 showColMenu
-                  ? "bg-blue-600 text-white border-blue-600 shadow-sm shadow-blue-200 dark:shadow-blue-900/30"
-                  : "bg-white hover:bg-blue-50 text-neutral-600 hover:text-blue-700 dark:bg-neutral-800 dark:hover:bg-blue-950/40 dark:text-neutral-300 dark:hover:text-blue-300 border-neutral-200 dark:border-neutral-700"
+                  ? "bg-primary text-primary-foreground border-primary shadow-sm shadow-primary/20"
+                  : "bg-white/70 hover:bg-primary/10 text-neutral-600 hover:text-primary dark:bg-white/[0.05] dark:hover:bg-primary/15 dark:text-neutral-300 dark:hover:text-primary border-border/80"
               }`}
             >
               <Columns3 className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Columnas</span>
-              <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold leading-none ${showColMenu ? "bg-white/20 text-white" : "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300"}`}>
+              <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold leading-none ${showColMenu ? "bg-white/20 text-white" : "bg-primary/15 text-primary"}`}>
                 {visibleCols.size}
               </span>
             </button>
@@ -674,7 +674,7 @@ export default function DataTable(props: any) {
                     </button>
                   </div>
                   {/* Info hint */}
-                  <div className="px-3 py-1.5 bg-blue-50/60 dark:bg-blue-950/20 border-b border-blue-100 dark:border-blue-900/30 flex items-center gap-1.5">
+                  <div className="px-3 py-1.5 bg-primary/10 dark:bg-primary/12 border-b border-blue-100 dark:border-blue-900/30 flex items-center gap-1.5">
                     <span className="text-[10px] text-blue-600 dark:text-blue-400">
                       Arrastra para reordenar · selecciona para mostrar en tabla y exportar
                     </span>
@@ -747,7 +747,7 @@ export default function DataTable(props: any) {
 
         <table className="w-full text-sm border-collapse min-w-max">
           <thead className="sticky top-0 z-10">
-            <tr className="bg-neutral-50 dark:bg-neutral-800 text-xs text-neutral-500 dark:text-neutral-400 font-semibold uppercase tracking-wide border-b border-neutral-200 dark:border-neutral-700">
+            <tr className="bg-muted/45 text-xs font-black uppercase tracking-[0.18em] text-muted-foreground border-b border-border/70 backdrop-blur">
               {selectable && (
                 <th className="px-3 py-3 w-10 text-left">
                   <input
@@ -772,7 +772,7 @@ export default function DataTable(props: any) {
                     col.center ? "text-center" : ""
                   } ${
                     col.sortable
-                      ? "cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-700/50 transition-colors"
+                      ? "cursor-pointer hover:bg-primary/5 dark:hover:bg-white/[0.06] transition-colors"
                       : ""
                   }`}
                 >
@@ -904,12 +904,12 @@ export default function DataTable(props: any) {
                   <React.Fragment key={key}>
                     <tr
                       onClick={() => onRowClick?.(row)}
-                      className={`border-t border-neutral-100 dark:border-neutral-800 transition-colors ${
+                      className={`border-t border-border/55 transition-colors ${
                         onRowClick ? "cursor-pointer" : ""
                       } ${
                         isSelected
-                          ? "bg-blue-50/60 dark:bg-blue-950/20"
-                          : "hover:bg-neutral-50 dark:hover:bg-neutral-800/50"
+                          ? "bg-primary/10 dark:bg-primary/12"
+                          : "hover:bg-neutral-50/75 dark:hover:bg-white/[0.045]"
                       }`}
                     >
                       {selectable && (
@@ -954,7 +954,7 @@ export default function DataTable(props: any) {
 
                       {hasActions && (
                         <td
-                          className="sticky right-0 bg-white dark:bg-neutral-900 z-10
+                          className="sticky right-0 bg-white/95 backdrop-blur dark:bg-neutral-900/95 z-10
                             border-l border-black/[.05] dark:border-white/[.06]
                             shadow-md
                             px-2 py-2"
@@ -1013,7 +1013,7 @@ export default function DataTable(props: any) {
       {/* ── Custom horizontal scrollbar ──────────────────────────────────────── */}
       <div
         ref={hBarRef}
-        className="h-3 bg-neutral-100 dark:bg-neutral-800/80 relative select-none border-t border-neutral-200 dark:border-neutral-700 cursor-pointer"
+        className="h-3 bg-muted/40 relative select-none border-t border-border/70 cursor-pointer"
         onClick={(e) => {
           const el = scrollRef.current;
           const bar = hBarRef.current;
@@ -1026,13 +1026,13 @@ export default function DataTable(props: any) {
         <div
           ref={hThumbRef}
           onPointerDown={handleThumbPointerDown}
-          className="absolute top-0.5 h-2 rounded-full bg-neutral-400/70 dark:bg-neutral-500/70 hover:bg-neutral-500 dark:hover:bg-neutral-400 transition-colors cursor-grab active:cursor-grabbing"
+          className="absolute top-0.5 h-2 rounded-full bg-primary/55 hover:bg-primary transition-colors cursor-grab active:cursor-grabbing"
           style={{ opacity: 0, width: "48px" }}
         />
       </div>
 
       {/* ── Pagination — always visible ──────────────────────────────────────── */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 gap-2 flex-wrap">
+      <div className="flex items-center justify-between px-4 py-2.5 border-t border-border/70 bg-white/65 backdrop-blur-xl dark:bg-white/[0.03] gap-2 flex-wrap">
         {/* Left: range info + page-size selector */}
         <div className="flex items-center gap-2 flex-wrap">
           {/* Row range: "1–20 de 347 registros" */}
@@ -1172,4 +1172,5 @@ export default function DataTable(props: any) {
     </div>
   );
 }
+
 

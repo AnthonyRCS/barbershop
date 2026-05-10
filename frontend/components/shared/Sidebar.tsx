@@ -97,10 +97,10 @@ const roleLabel: Record<Role, string> = {
 };
 
 const roleColors: Record<Role, string> = {
-  OWNER: "bg-primary",
-  ADMIN: "bg-primary",
-  BARBER: "bg-blue-600",
-  RECEPTIONIST: "bg-teal-600",
+  OWNER: "bg-gradient-to-br from-primary to-amber-500 text-primary-foreground",
+  ADMIN: "bg-gradient-to-br from-primary to-amber-500 text-primary-foreground",
+  BARBER: "bg-gradient-to-br from-blue-600 to-cyan-500 text-white",
+  RECEPTIONIST: "bg-gradient-to-br from-emerald-600 to-teal-500 text-white",
 };
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -152,20 +152,21 @@ export function Sidebar({
   return (
     <aside
       className={cn(
-        "fixed left-4 top-4 bottom-4 z-50 h-[calc(100svh-2rem)] max-h-[calc(100dvh-2rem)] overflow-hidden rounded-2xl border border-neutral-200/80 bg-white/90 shadow-xl ring-1 ring-neutral-200/60 backdrop-blur-2xl dark:border-neutral-800/30 dark:bg-neutral-900/90 dark:ring-white/5",
+        "premium-card fixed left-4 top-4 bottom-4 z-50 h-[calc(100svh-2rem)] max-h-[calc(100dvh-2rem)] overflow-hidden rounded-[1.65rem] ring-1 ring-white/40 dark:ring-white/10",
         "transition-all duration-300",
         isCollapsed ? "w-[4.5rem]" : "w-64"
       )}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-blue-500/10 to-transparent dark:from-blue-500/15" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-primary/18 via-primary/5 to-transparent" />
+      <div className="pointer-events-none absolute -right-16 top-16 h-36 w-36 rounded-full bg-primary/10 blur-3xl" />
       <div className="flex h-full flex-col">
         {/* Header */}
         <div className={cn("flex items-center justify-between", isCollapsed ? "p-3" : "p-4")}>
           <button
             className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-xl text-white shadow-sm",
+              "premium-glow flex h-10 w-10 items-center justify-center rounded-2xl shadow-sm",
               iconColor
             )}
             onClick={() => router.push("/")}
@@ -203,7 +204,7 @@ export function Sidebar({
           )}
         </div>
 
-        <div className="my-1 h-px w-full bg-gradient-to-r from-transparent via-neutral-200 to-transparent opacity-50 dark:via-neutral-800" />
+        <div className="premium-hairline my-1 h-px w-full opacity-70" />
 
         {/* Navigation */}
         <div className="no-scrollbar flex-1 overflow-y-auto overscroll-contain px-2 py-2">
@@ -215,7 +216,7 @@ export function Sidebar({
               return (
                 <div key={item.id}>
                   {showSegmentHeader ? (
-                    <div className="px-3 pb-2 pt-3 text-[10px] font-bold uppercase tracking-widest text-neutral-400/80 dark:text-neutral-500">
+                    <div className="px-3 pb-2 pt-3 text-[10px] font-bold uppercase tracking-[0.24em] text-neutral-400/80 dark:text-neutral-500">
                       {segmentLabels[item.segment] ?? item.segment}
                     </div>
                   ) : null}
@@ -242,7 +243,7 @@ export function Sidebar({
         {/* Footer */}
         <div
           className={cn(
-            "mt-auto border-t border-neutral-200/60 bg-white/50 p-2 backdrop-blur-sm dark:border-neutral-800/80 dark:bg-neutral-900/50",
+            "mt-auto border-t border-neutral-200/60 bg-white/40 p-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.03]",
             !isCollapsed && "p-3"
           )}
         >
@@ -269,7 +270,7 @@ export function Sidebar({
               <div className="flex items-center gap-2.5 min-w-0">
                 <div
                   className={cn(
-                    "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-white",
+                    "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-[11px] font-bold shadow-sm",
                     iconColor
                   )}
                 >
