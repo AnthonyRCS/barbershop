@@ -1,0 +1,520 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210 33% 98%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+
+  --primary: 213 84% 42%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 210 34% 93%;
+  --secondary-foreground: 222 47% 11%;
+
+  --muted: 210 26% 95%;
+  --muted-foreground: 215 16% 36%;
+
+  --accent: 213 84% 46%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 214 26% 86%;
+  --input: 214 26% 86%;
+  --ring: 213 84% 46%;
+
+  --radius: 0.5rem;
+
+  --sidebar-bg: 220 43% 12%;
+  --sidebar-fg: 0 0% 98%;
+  --sidebar-accent: 220 36% 18%;
+  --sidebar-accent-fg: 0 0% 100%;
+  --sidebar-border: 220 30% 22%;
+  --sidebar-primary: 213 84% 46%;
+  --sidebar-primary-fg: 0 0% 100%;
+  --sidebar-muted: 215 19% 72%;
+
+  --zinc-925: 240 11% 7%;
+
+  --surface-bright: var(--card);
+  --surface: var(--background);
+  --surface-dim: 220 12% 94%;
+  --surface-variant: 214 20% 92%;
+  --surface-container-lowest: 0 0% 100%;
+  --surface-container-low: 0 0% 98%;
+  --surface-container: 210 20% 96%;
+  --surface-container-high: 210 22% 94%;
+  --surface-container-highest: 210 24% 92%;
+  --surface-tint: var(--primary);
+
+  --on-background: var(--foreground);
+  --on-surface: var(--foreground);
+  --on-surface-variant: var(--muted-foreground);
+  --inverse-surface: 222 47% 11%;
+  --inverse-on-surface: 0 0% 98%;
+  --outline: 214 18% 72%;
+  --outline-variant: var(--border);
+
+  --primary-dim: 213 70% 48%;
+  --primary-fixed: 213 84% 42%;
+  --primary-fixed-dim: 213 70% 48%;
+  --primary-container: 213 84% 92%;
+  --on-primary: 0 0% 100%;
+  --on-primary-container: 222 47% 11%;
+  --on-primary-fixed: 0 0% 100%;
+  --on-primary-fixed-variant: 222 47% 11%;
+  --inverse-primary: 213 70% 56%;
+
+  --secondary-dim: var(--secondary);
+  --secondary-fixed: var(--secondary);
+  --secondary-fixed-dim: 210 28% 86%;
+  --secondary-container: 210 22% 88%;
+  --on-secondary: 222 47% 11%;
+  --on-secondary-container: 222 47% 11%;
+  --on-secondary-fixed: 222 47% 11%;
+  --on-secondary-fixed-variant: 215 16% 36%;
+
+  --tertiary: 152 58% 42%;
+  --tertiary-dim: 152 52% 36%;
+  --tertiary-container: 151 53% 90%;
+  --tertiary-fixed: 152 58% 42%;
+  --tertiary-fixed-dim: 152 52% 36%;
+  --on-tertiary: 0 0% 100%;
+  --on-tertiary-container: 152 46% 18%;
+  --on-tertiary-fixed: 0 0% 100%;
+  --on-tertiary-fixed-variant: 152 46% 18%;
+
+  --error: 0 84% 60%;
+  --error-dim: 0 70% 52%;
+  --error-container: 0 84% 92%;
+  --on-error: 0 0% 100%;
+  --on-error-container: 0 52% 32%;
+
+  --neutral-50: 210 33% 98%;
+  --neutral-100: 210 28% 96%;
+  --neutral-200: 214 26% 90%;
+  --neutral-300: 214 20% 80%;
+  --neutral-400: 215 16% 62%;
+  --neutral-500: 215 14% 48%;
+  --neutral-600: 215 19% 36%;
+  --neutral-700: 222 29% 24%;
+  --neutral-800: 222 35% 16%;
+  --neutral-900: 222 47% 11%;
+  --neutral-950: 222 56% 7%;
+
+  --slate-50: var(--neutral-50);
+  --slate-100: var(--neutral-100);
+  --slate-200: var(--neutral-200);
+  --slate-300: var(--neutral-300);
+  --slate-400: var(--neutral-400);
+  --slate-500: var(--neutral-500);
+  --slate-600: var(--neutral-600);
+  --slate-700: var(--neutral-700);
+  --slate-800: var(--neutral-800);
+  --slate-900: var(--neutral-900);
+  --slate-950: var(--neutral-950);
+
+  --stone-50: var(--neutral-50);
+  --stone-100: var(--neutral-100);
+  --stone-200: var(--neutral-200);
+  --stone-300: var(--neutral-300);
+  --stone-400: var(--neutral-400);
+  --stone-500: var(--neutral-500);
+  --stone-600: var(--neutral-600);
+  --stone-700: var(--neutral-700);
+  --stone-800: var(--neutral-800);
+  --stone-900: var(--neutral-900);
+  --stone-950: var(--neutral-950);
+
+  --gray-50: var(--neutral-50);
+  --gray-100: var(--neutral-100);
+  --gray-200: var(--neutral-200);
+  --gray-300: var(--neutral-300);
+  --gray-400: var(--neutral-400);
+  --gray-500: var(--neutral-500);
+  --gray-600: var(--neutral-600);
+  --gray-700: var(--neutral-700);
+  --gray-800: var(--neutral-800);
+  --gray-900: var(--neutral-900);
+  --gray-950: var(--neutral-950);
+
+  --zinc-50: var(--neutral-50);
+  --zinc-100: var(--neutral-100);
+  --zinc-200: var(--neutral-200);
+  --zinc-300: var(--neutral-300);
+  --zinc-400: var(--neutral-400);
+  --zinc-500: var(--neutral-500);
+  --zinc-600: var(--neutral-600);
+  --zinc-700: var(--neutral-700);
+  --zinc-800: var(--neutral-800);
+  --zinc-900: var(--neutral-900);
+  --zinc-950: var(--neutral-950);
+
+  --blue-50: 214 100% 97%;
+  --blue-100: 214 95% 93%;
+  --blue-200: 213 97% 87%;
+  --blue-300: 212 96% 78%;
+  --blue-400: 213 94% 68%;
+  --blue-500: 213 84% 58%;
+  --blue-600: 213 84% 46%;
+  --blue-700: 213 84% 38%;
+  --blue-800: 214 78% 30%;
+  --blue-900: 217 70% 24%;
+  --blue-950: 221 83% 13%;
+
+  --indigo-50: 226 100% 97%;
+  --indigo-100: 226 100% 94%;
+  --indigo-200: 228 96% 89%;
+  --indigo-300: 230 94% 82%;
+  --indigo-400: 234 89% 74%;
+  --indigo-500: 239 84% 67%;
+  --indigo-600: 243 75% 59%;
+  --indigo-700: 245 58% 51%;
+  --indigo-800: 244 55% 41%;
+  --indigo-900: 242 47% 34%;
+  --indigo-950: 244 47% 20%;
+
+  --cyan-50: 183 100% 96%;
+  --cyan-100: 185 96% 90%;
+  --cyan-200: 186 94% 82%;
+  --cyan-300: 187 92% 69%;
+  --cyan-400: 188 86% 53%;
+  --cyan-500: 189 94% 43%;
+  --cyan-600: 192 91% 36%;
+  --cyan-700: 193 82% 31%;
+  --cyan-800: 194 70% 27%;
+  --cyan-900: 196 64% 24%;
+  --cyan-950: 197 79% 15%;
+
+  --sky-50: 204 100% 97%;
+  --sky-100: 204 94% 94%;
+  --sky-200: 201 94% 86%;
+  --sky-300: 199 95% 74%;
+  --sky-400: 198 93% 60%;
+  --sky-500: 199 89% 48%;
+  --sky-600: 200 98% 39%;
+  --sky-700: 201 96% 32%;
+  --sky-800: 201 90% 27%;
+  --sky-900: 202 80% 24%;
+  --sky-950: 204 80% 16%;
+
+  --emerald-50: 152 81% 96%;
+  --emerald-100: 149 80% 90%;
+  --emerald-200: 152 76% 80%;
+  --emerald-300: 156 72% 67%;
+  --emerald-400: 158 64% 52%;
+  --emerald-500: 160 84% 39%;
+  --emerald-600: 161 94% 30%;
+  --emerald-700: 163 94% 24%;
+  --emerald-800: 163 88% 20%;
+  --emerald-900: 164 86% 16%;
+  --emerald-950: 166 91% 9%;
+
+  --green-50: var(--emerald-50);
+  --green-100: var(--emerald-100);
+  --green-200: var(--emerald-200);
+  --green-300: var(--emerald-300);
+  --green-400: var(--emerald-400);
+  --green-500: var(--emerald-500);
+  --green-600: var(--emerald-600);
+  --green-700: var(--emerald-700);
+  --green-800: var(--emerald-800);
+  --green-900: var(--emerald-900);
+  --green-950: var(--emerald-950);
+
+  --amber-50: 48 100% 96%;
+  --amber-100: 48 96% 89%;
+  --amber-200: 48 97% 77%;
+  --amber-300: 46 97% 65%;
+  --amber-400: 43 96% 56%;
+  --amber-500: 38 92% 50%;
+  --amber-600: 32 95% 44%;
+  --amber-700: 26 90% 37%;
+  --amber-800: 23 83% 31%;
+  --amber-900: 22 78% 26%;
+  --amber-950: 21 92% 14%;
+
+  --red-50: 0 86% 97%;
+  --red-100: 0 93% 94%;
+  --red-200: 0 96% 89%;
+  --red-300: 0 94% 82%;
+  --red-400: 0 91% 71%;
+  --red-500: 0 84% 60%;
+  --red-600: 0 72% 51%;
+  --red-700: 0 74% 42%;
+  --red-800: 0 70% 35%;
+  --red-900: 0 63% 31%;
+  --red-950: 0 75% 15%;
+}
+
+.dark {
+  --background: 0 0% 0%;
+  --foreground: 0 0% 96.86%;
+
+  --card: 0 0% 10%;
+  --card-foreground: 0 0% 96.86%;
+
+  --popover: 0 0% 10%;
+  --popover-foreground: 0 0% 96.86%;
+
+  --primary: 39.74 100% 58.63%;
+  --primary-foreground: 0 0% 0%;
+
+  --secondary: 0 0% 14%;
+  --secondary-foreground: 0 0% 96.86%;
+
+  --muted: 0 0% 16%;
+  --muted-foreground: 0 0% 72%;
+
+  --accent: 39.74 100% 58.63%;
+  --accent-foreground: 0 0% 0%;
+
+  --destructive: 0 62.8% 50%;
+  --destructive-foreground: 0 0% 96.86%;
+
+  --border: 0 0% 22%;
+  --input: 0 0% 18%;
+  --ring: 39.74 100% 58.63%;
+
+  --sidebar-bg: 0 0% 0%;
+  --sidebar-fg: 0 0% 96.86%;
+  --sidebar-accent: 0 0% 14%;
+  --sidebar-accent-fg: 0 0% 96.86%;
+  --sidebar-border: 0 0% 22%;
+  --sidebar-primary: 39.74 100% 58.63%;
+  --sidebar-primary-fg: 0 0% 0%;
+  --sidebar-muted: 0 0% 72%;
+
+  --zinc-925: 240 8% 8%;
+
+  --surface-bright: 0 0% 14%;
+  --surface: var(--background);
+  --surface-dim: 0 0% 6%;
+  --surface-variant: 0 0% 16%;
+  --surface-container-lowest: 0 0% 0%;
+  --surface-container-low: 0 0% 8%;
+  --surface-container: 0 0% 10%;
+  --surface-container-high: 0 0% 14%;
+  --surface-container-highest: 0 0% 18%;
+  --surface-tint: var(--primary);
+
+  --on-background: var(--foreground);
+  --on-surface: var(--foreground);
+  --on-surface-variant: var(--muted-foreground);
+  --inverse-surface: 0 0% 96%;
+  --inverse-on-surface: 222 47% 11%;
+  --outline: 0 0% 45%;
+  --outline-variant: var(--border);
+
+  --primary-dim: 39.74 100% 50%;
+  --primary-fixed: 39.74 100% 58.63%;
+  --primary-fixed-dim: 39.74 100% 50%;
+  --primary-container: 39.74 88% 22%;
+  --on-primary: 0 0% 0%;
+  --on-primary-container: 39.74 100% 86%;
+  --on-primary-fixed: 0 0% 0%;
+  --on-primary-fixed-variant: 39.74 88% 16%;
+  --inverse-primary: 39.74 95% 52%;
+
+  --secondary-dim: var(--secondary);
+  --secondary-fixed: var(--secondary);
+  --secondary-fixed-dim: 0 0% 20%;
+  --secondary-container: 0 0% 18%;
+  --on-secondary: 0 0% 96%;
+  --on-secondary-container: 0 0% 96%;
+  --on-secondary-fixed: 0 0% 96%;
+  --on-secondary-fixed-variant: 0 0% 72%;
+
+  --tertiary: 152 54% 62%;
+  --tertiary-dim: 152 48% 54%;
+  --tertiary-container: 152 48% 18%;
+  --tertiary-fixed: 152 54% 62%;
+  --tertiary-fixed-dim: 152 48% 54%;
+  --on-tertiary: 152 46% 12%;
+  --on-tertiary-container: 152 54% 82%;
+  --on-tertiary-fixed: 152 46% 12%;
+  --on-tertiary-fixed-variant: 152 54% 82%;
+
+  --error: 0 72% 56%;
+  --error-dim: 0 66% 50%;
+  --error-container: 0 56% 22%;
+  --on-error: 0 0% 100%;
+  --on-error-container: 0 72% 84%;
+
+  --neutral-50: 0 0% 6%;
+  --neutral-100: 0 0% 10%;
+  --neutral-200: 0 0% 14%;
+  --neutral-300: 0 0% 22%;
+  --neutral-400: 0 0% 45%;
+  --neutral-500: 0 0% 56%;
+  --neutral-600: 0 0% 64%;
+  --neutral-700: 0 0% 72%;
+  --neutral-800: 0 0% 82%;
+  --neutral-900: 0 0% 90%;
+  --neutral-950: 0 0% 96%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 96.86%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 96.86%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 96.86%;
+
+    --primary: 213 84% 58%;
+    --primary-foreground: 0 0% 6%;
+
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 96.86%;
+
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 72%;
+
+    --accent: 213 84% 58%;
+    --accent-foreground: 0 0% 6%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 96.86%;
+
+    --border: 0 0% 22%;
+    --input: 0 0% 18%;
+    --ring: 213 84% 58%;
+  }
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-zinc-925: hsl(var(--zinc-925));
+  --color-surface-bright: hsl(var(--surface-bright));
+  --color-surface: hsl(var(--surface));
+  --color-surface-dim: hsl(var(--surface-dim));
+  --color-surface-variant: hsl(var(--surface-variant));
+  --color-surface-container-lowest: hsl(var(--surface-container-lowest));
+  --color-surface-container-low: hsl(var(--surface-container-low));
+  --color-surface-container: hsl(var(--surface-container));
+  --color-surface-container-high: hsl(var(--surface-container-high));
+  --color-surface-container-highest: hsl(var(--surface-container-highest));
+  --color-surface-tint: hsl(var(--surface-tint));
+  --color-on-background: hsl(var(--on-background));
+  --color-on-surface: hsl(var(--on-surface));
+  --color-on-surface-variant: hsl(var(--on-surface-variant));
+  --color-inverse-surface: hsl(var(--inverse-surface));
+  --color-inverse-on-surface: hsl(var(--inverse-on-surface));
+  --color-outline: hsl(var(--outline));
+  --color-outline-variant: hsl(var(--outline-variant));
+  --color-primary-dim: hsl(var(--primary-dim));
+  --color-primary-fixed: hsl(var(--primary-fixed));
+  --color-primary-fixed-dim: hsl(var(--primary-fixed-dim));
+  --color-primary-container: hsl(var(--primary-container));
+  --color-on-primary: hsl(var(--on-primary));
+  --color-on-primary-container: hsl(var(--on-primary-container));
+  --color-on-primary-fixed: hsl(var(--on-primary-fixed));
+  --color-on-primary-fixed-variant: hsl(var(--on-primary-fixed-variant));
+  --color-inverse-primary: hsl(var(--inverse-primary));
+  --color-secondary-dim: hsl(var(--secondary-dim));
+  --color-secondary-fixed: hsl(var(--secondary-fixed));
+  --color-secondary-fixed-dim: hsl(var(--secondary-fixed-dim));
+  --color-secondary-container: hsl(var(--secondary-container));
+  --color-on-secondary: hsl(var(--on-secondary));
+  --color-on-secondary-container: hsl(var(--on-secondary-container));
+  --color-on-secondary-fixed: hsl(var(--on-secondary-fixed));
+  --color-on-secondary-fixed-variant: hsl(var(--on-secondary-fixed-variant));
+  --color-tertiary: hsl(var(--tertiary));
+  --color-tertiary-dim: hsl(var(--tertiary-dim));
+  --color-tertiary-container: hsl(var(--tertiary-container));
+  --color-tertiary-fixed: hsl(var(--tertiary-fixed));
+  --color-tertiary-fixed-dim: hsl(var(--tertiary-fixed-dim));
+  --color-on-tertiary: hsl(var(--on-tertiary));
+  --color-on-tertiary-container: hsl(var(--on-tertiary-container));
+  --color-on-tertiary-fixed: hsl(var(--on-tertiary-fixed));
+  --color-on-tertiary-fixed-variant: hsl(var(--on-tertiary-fixed-variant));
+  --color-error: hsl(var(--error));
+  --color-error-dim: hsl(var(--error-dim));
+  --color-error-container: hsl(var(--error-container));
+  --color-on-error: hsl(var(--on-error));
+  --color-on-error-container: hsl(var(--on-error-container));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+* {
+  border-color: hsl(var(--border));
+  outline-color: hsl(var(--ring));
+}
+
+body {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.bg-grid-indigo-soft {
+  background-image:
+    linear-gradient(hsl(var(--indigo-500) / 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--indigo-500) / 0.12) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-orb-indigo-soft {
+  background-image:
+    radial-gradient(circle at 15% 10%, hsl(var(--blue-500) / 0.2), transparent 40%),
+    radial-gradient(circle at 80% 90%, hsl(var(--indigo-500) / 0.16), transparent 35%);
+}
+
+.bg-orb-blue-emerald {
+  background-image:
+    radial-gradient(circle at 20% 15%, hsl(var(--blue-500) / 0.26), transparent 40%),
+    radial-gradient(circle at 80% 85%, hsl(var(--emerald-500) / 0.16), transparent 35%);
+}
+
+.bg-surface-veil {
+  background-image: linear-gradient(
+    180deg,
+    hsl(var(--surface-container-high) / 0.96) 0%,
+    hsl(var(--surface-container) / 0.96) 100%
+  );
+}
+
+.shadow-soft-lg {
+  box-shadow: 0 20px 60px hsl(var(--neutral-950) / 0.45), 0 0 30px hsl(var(--indigo-500) / 0.2);
+}

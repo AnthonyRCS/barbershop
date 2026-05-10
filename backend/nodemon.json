@@ -1,0 +1,6 @@
+{
+  "watch": ["src", "server.ts"],
+  "ext": "ts,json",
+  "ignore": ["src/**/*.test.ts", "dist"],
+  "exec": "node --env-file=.env --import tsx/esm server.ts"
+}

@@ -1,0 +1,703 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─── Internal roles (barbershop staff) ───────────────────────────────────────
+
+enum Role {
+  OWNER
+  ADMIN
+  BARBER
+  RECEPTIONIST
+}
+
+// ─── Business / subscription ──────────────────────────────────────────────────
+
+enum BusinessStatus {
+  TRIAL
+  ACTIVE
+  SUSPENDED
+  CANCELLED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+}
+
+// ─── Appointments ─────────────────────────────────────────────────────────────
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+// ─── Audit ───────────────────────────────────────────────────────────────────
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  LOGIN
+  CANCEL
+}
+
+// ─── Platform (superadmin) ────────────────────────────────────────────────────
+
+enum PlatformRole {
+  SUPERADMIN
+  SUPPORT
+  FINANCE
+  ANALYST
+}
+
+enum PlatformUserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum PlatformAuditAction {
+  LOGIN
+  BUSINESS_SUSPEND
+  BUSINESS_REACTIVATE
+  BUSINESS_CANCEL
+  BUSINESS_UPDATE
+  PLAN_CHANGE
+  PLAN_CREATE
+  PLAN_UPDATE
+  PLAN_TOGGLE
+  SUBSCRIPTION_RENEW
+  SUBSCRIPTION_CANCEL
+  SUBSCRIPTION_STATUS_CHANGE
+  PLATFORM_USER_CREATE
+  PLATFORM_USER_UPDATE
+  PLATFORM_USER_STATUS_CHANGE
+}
+
+// ─── Customer portal (phase 2) ────────────────────────────────────────────────
+
+enum CustomerAccountStatus {
+  PENDING_VERIFICATION
+  ACTIVE
+  SUSPENDED
+}
+
+enum CustomerInvitationStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  TRANSFER
+  YAPE
+  PLIN
+  OTHER
+}
+
+enum StockMovementType {
+  IN
+  OUT
+  ADJUSTMENT
+}
+
+// ═════════════════════════���═════════════════════════════════��═════════════════
+// MODELS
+// ═════════════════════════════════════════════════════════════════════════════
+
+model Plan {
+  id                       String    @id @default(cuid())
+  name                     String
+  price                    Decimal
+  maxBarbers               Int
+  maxAppointmentsPerMonth  Int
+  features                 Json
+  active                   Boolean   @default(true)
+  createdAt                DateTime  @default(now())
+
+  businesses               Business[]
+  subscriptions            Subscription[]
+
+  @@index([active])
+}
+
+model Business {
+  id             String          @id @default(cuid())
+  name           String
+  slug           String          @unique
+  phone          String
+  email          String          @unique
+  address        String
+  logoUrl        String?
+  currency       String          @default("PEN")
+  appointmentIntervalMinutes Int @default(20)
+  planId         String
+  status         BusinessStatus  @default(TRIAL)
+  trialEndsAt    DateTime?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  deletedAt      DateTime?
+
+  plan                 Plan              @relation(fields: [planId], references: [id])
+  subscriptions        Subscription[]
+  users                User[]
+  customers            Customer[]
+  barbers              Barber[]
+  services             Service[]
+  appointments         Appointment[]
+  businessHours        BusinessHours[]
+  barberSchedules      BarberSchedule[]
+  auditLogs            AuditLog[]
+  customerAccountLinks CustomerAccountLink[]
+  customerInvitations  CustomerInvitation[]
+  products             Product[]
+  stockMovements       StockMovement[]
+  sales                Sale[]
+  saleItems            SaleItem[]
+  cashClosings         CashClosing[]
+  scheduleBlocks       ScheduleBlock[]
+  waitlistEntries      WaitlistEntry[]
+
+  @@index([slug])
+  @@index([planId])
+}
+
+model Subscription {
+  id              String             @id @default(cuid())
+  businessId      String
+  planId          String
+  startDate       DateTime
+  endDate         DateTime
+  status          SubscriptionStatus
+  amount          Decimal?
+  paymentMethod   String?
+  externalRef     String?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  business        Business           @relation(fields: [businessId], references: [id])
+  plan            Plan               @relation(fields: [planId], references: [id])
+
+  @@index([businessId, status])
+  @@index([status, endDate])
+}
+
+model User {
+  id           String    @id @default(cuid())
+  businessId   String
+  name         String
+  photoUrl     String?
+  email        String
+  passwordHash String
+  role         Role      @default(BARBER)
+  active       Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+
+  business                   Business              @relation(fields: [businessId], references: [id])
+  barber                     Barber?
+  createdAppointments        Appointment[]         @relation("CreatedBy")
+  auditLogs                  AuditLog[]
+  revokedTokens              RevokedToken[]
+  refreshTokens              RefreshToken[]
+  passwordResetTokens        PasswordResetToken[]
+  passwordHistory            PasswordHistory[]
+  createdCustomers           Customer[]            @relation("CustomerCreatedBy")
+  linkedCustomerAccounts     CustomerAccountLink[] @relation("CustomerAccountLinkedBy")
+  createdCustomerInvitations CustomerInvitation[]  @relation("CustomerInvitationCreatedBy")
+  sales                      Sale[]
+  cashClosings               CashClosing[]
+  stockMovements             StockMovement[]
+
+  @@unique([email, businessId])
+  @@index([businessId, role])
+}
+
+model RevokedToken {
+  id        String    @id @default(cuid())
+  token     String    @unique @db.Text
+  userId    String
+  exp       DateTime?
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  used      Boolean   @default(false)
+  usedAt    DateTime?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model PasswordHistory {
+  id           String   @id @default(cuid())
+  userId       String
+  passwordHash String
+  changedAt    DateTime @default(now())
+  ipAddress    String?
+  userAgent    String?
+  reason       String?
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// ─── Customer ───────────────────────────���──────────────────────────��──────────
+// Operational entity (the barbershop's client record).
+// Does NOT require authentication — exists independently of CustomerAccount.
+// CustomerAccount is a future, optional layer for self-service portal access.
+
+model Customer {
+  id                String    @id @default(cuid())
+  businessId        String
+  name              String
+  photoUrl          String?
+  phone             String?
+  email             String?
+  notes             String?
+  birthDate         DateTime?
+  preferredBarberId String?
+  totalVisits       Int       @default(0)
+  totalSpent        Decimal   @default(0)
+  lastVisitAt       DateTime?
+  isActive          Boolean   @default(true)
+  createdByUserId   String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  deletedAt         DateTime?
+
+  business        Business    @relation(fields: [businessId], references: [id])
+  preferredBarber Barber?     @relation("CustomerPreferredBarber", fields: [preferredBarberId], references: [id])
+  createdBy       User?       @relation("CustomerCreatedBy", fields: [createdByUserId], references: [id])
+  appointments    Appointment[]
+  saleItems       SaleItem[]
+  sales           Sale[]
+  waitlistEntries WaitlistEntry[]
+  accountLink     CustomerAccountLink?
+  invitations     CustomerInvitation[]
+
+  // NOTE: uniqueness for phone/email per business is enforced at the service layer.
+  // A PostgreSQL partial unique index (WHERE phone IS NOT NULL) is recommended for production
+  // but requires a raw SQL migration. Add via: prisma migrate dev with custom SQL.
+  @@index([businessId])
+  @@index([businessId, isActive])
+  @@index([businessId, lastVisitAt])
+  @@index([businessId, phone])
+  @@index([businessId, email])
+  @@index([businessId, name])
+}
+
+model Barber {
+  id                   String    @id @default(cuid())
+  businessId           String
+  userId               String    @unique
+  specialty            String?
+  commissionPercentage Decimal   @default(0)
+  active               Boolean   @default(true)
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  deletedAt            DateTime?
+
+  business           Business         @relation(fields: [businessId], references: [id])
+  user               User             @relation(fields: [userId], references: [id])
+  appointments       Appointment[]
+  saleItems          SaleItem[]
+  scheduleBlocks     ScheduleBlock[]
+  waitlistEntries    WaitlistEntry[]
+  schedules          BarberSchedule[]
+  preferredCustomers Customer[]       @relation("CustomerPreferredBarber")
+
+  @@index([businessId, active])
+}
+
+model Service {
+  id              String    @id @default(cuid())
+  businessId      String
+  name            String
+  description     String?
+  durationMinutes Int
+  price           Decimal
+  active          Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+
+  business        Business  @relation(fields: [businessId], references: [id])
+  appointments    Appointment[]
+  saleItems       SaleItem[]
+  waitlistEntries WaitlistEntry[]
+
+  @@index([businessId, active])
+}
+
+model Appointment {
+  id              String             @id @default(cuid())
+  businessId      String
+  customerId      String
+  barberId        String
+  serviceId       String
+  appointmentDate DateTime
+  startTime       DateTime
+  endTime         DateTime
+  status          AppointmentStatus  @default(PENDING)
+  finalPrice      Decimal?
+  notes           String?
+  cancelReason    String?
+  idempotencyKey  String?
+  createdById     String
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  deletedAt       DateTime?
+
+  business        Business           @relation(fields: [businessId], references: [id])
+  customer        Customer           @relation(fields: [customerId], references: [id])
+  barber          Barber             @relation(fields: [barberId], references: [id])
+  service         Service            @relation(fields: [serviceId], references: [id])
+  createdBy       User               @relation("CreatedBy", fields: [createdById], references: [id])
+
+  @@unique([businessId, idempotencyKey])
+  @@index([businessId, appointmentDate])
+  @@index([barberId, appointmentDate])
+  @@index([businessId, status])
+  @@index([customerId])
+}
+
+model BusinessHours {
+  id         String   @id @default(cuid())
+  businessId String
+  dayOfWeek  Int
+  openTime   String
+  closeTime  String
+  isOpen     Boolean  @default(true)
+
+  business   Business @relation(fields: [businessId], references: [id])
+
+  @@unique([businessId, dayOfWeek])
+}
+
+model BarberSchedule {
+  id          String   @id @default(cuid())
+  businessId  String
+  barberId    String
+  dayOfWeek   Int
+  startTime   String
+  endTime     String
+  isAvailable Boolean  @default(true)
+
+  business    Business @relation(fields: [businessId], references: [id])
+  barber      Barber   @relation(fields: [barberId], references: [id])
+
+  @@unique([barberId, dayOfWeek])
+}
+
+model AuditLog {
+  id         String      @id @default(cuid())
+  businessId String
+  userId     String
+  action     AuditAction
+  entity     String
+  entityId   String
+  before     Json?
+  after      Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime    @default(now())
+
+  business   Business    @relation(fields: [businessId], references: [id])
+  user       User        @relation(fields: [userId], references: [id])
+
+  @@index([businessId, createdAt])
+  @@index([entity, entityId])
+}
+
+model PlatformUser {
+  id           String             @id @default(cuid())
+  name         String
+  email        String             @unique
+  passwordHash String
+  role         PlatformRole       @default(ANALYST)
+  status       PlatformUserStatus @default(ACTIVE)
+  lastLoginAt  DateTime?
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  auditLogs    PlatformAuditLog[]
+
+  @@index([email])
+  @@index([role, status])
+}
+
+model PlatformAuditLog {
+  id            String              @id @default(cuid())
+  performedById String
+  action        PlatformAuditAction
+  entity        String
+  entityId      String
+  before        Json?
+  after         Json?
+  metadata      Json?
+  ipAddress     String?
+  userAgent     String?
+  createdAt     DateTime            @default(now())
+
+  performedBy   PlatformUser        @relation(fields: [performedById], references: [id])
+
+  @@index([performedById])
+  @@index([entity, entityId])
+  @@index([createdAt])
+  @@index([action])
+}
+
+// ─── Customer Account (Phase 2 — self-service portal) ─────────────────────────
+// Global identity. Email is unique across all tenants.
+// One account can be linked to multiple Customer records (one per business).
+
+model CustomerAccount {
+  id              String                @id @default(cuid())
+  email           String                @unique
+  passwordHash    String
+  emailVerifiedAt DateTime?
+  status          CustomerAccountStatus @default(PENDING_VERIFICATION)
+  lastLoginAt     DateTime?
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+
+  // One account → many tenant links (customer at multiple barbers)
+  links           CustomerAccountLink[]
+}
+
+// ─── CustomerAccountLink ──────────────────────────────────────────────────────
+// Bridges a CustomerAccount (global) to a Customer (per-tenant).
+// Invariants:
+//   • One Customer has at most ONE link  (customerId @unique)
+//   • One Account maps to at most ONE Customer per business  (@@unique accountId, businessId)
+
+model CustomerAccountLink {
+  id          String    @id @default(cuid())
+  accountId   String
+  customerId  String    @unique
+  businessId  String
+  linkedAt    DateTime  @default(now())
+  linkedById  String?   // null = self-claimed, userId = linked by staff
+
+  account     CustomerAccount @relation(fields: [accountId], references: [id])
+  customer    Customer        @relation(fields: [customerId], references: [id])
+  business    Business        @relation(fields: [businessId], references: [id])
+  linkedBy    User?           @relation("CustomerAccountLinkedBy", fields: [linkedById], references: [id])
+
+  @@unique([accountId, businessId])
+  @@index([businessId])
+}
+
+// ─── CustomerInvitation ───────────────────────────────────────────────────────
+// Staff can invite a customer to claim their record.
+// Token is single-use and expires.
+
+model CustomerInvitation {
+  id          String                   @id @default(cuid())
+  businessId  String
+  customerId  String
+  email       String
+  tokenHash   String                   @unique
+  status      CustomerInvitationStatus @default(PENDING)
+  expiresAt   DateTime
+  acceptedAt  DateTime?
+  createdById String
+  createdAt   DateTime                 @default(now())
+
+  business    Business  @relation(fields: [businessId], references: [id])
+  customer    Customer  @relation(fields: [customerId], references: [id])
+  createdBy   User      @relation("CustomerInvitationCreatedBy", fields: [createdById], references: [id])
+
+  @@index([businessId])
+  @@index([customerId])
+}
+
+model Product {
+  id             String    @id @default(cuid())
+  businessId     String
+  name           String
+  sku            String?
+  description    String?
+  stock          Int       @default(0)
+  minStock       Int       @default(0)
+  unitCost       Decimal   @default(0)
+  salePrice      Decimal   @default(0)
+  active         Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
+
+  business       Business  @relation(fields: [businessId], references: [id])
+  stockMovements StockMovement[]
+  saleItems      SaleItem[]
+
+  @@unique([businessId, sku])
+  @@index([businessId, active])
+  @@index([businessId, stock])
+}
+
+model StockMovement {
+  id            String            @id @default(cuid())
+  businessId    String
+  productId     String
+  type          StockMovementType
+  quantity      Int
+  reason        String?
+  createdById   String
+  createdAt     DateTime          @default(now())
+
+  business      Business          @relation(fields: [businessId], references: [id])
+  product       Product           @relation(fields: [productId], references: [id])
+  createdBy     User              @relation(fields: [createdById], references: [id])
+
+  @@index([businessId, createdAt])
+  @@index([productId, createdAt])
+}
+
+model Sale {
+  id              String         @id @default(cuid())
+  businessId      String
+  customerId      String?
+  subtotal        Decimal        @default(0)
+  discount        Decimal        @default(0)
+  total           Decimal        @default(0)
+  paymentMethod   PaymentMethod
+  notes           String?
+  createdById     String
+  createdAt       DateTime       @default(now())
+  deletedAt       DateTime?
+
+  business        Business       @relation(fields: [businessId], references: [id])
+  customer        Customer?      @relation(fields: [customerId], references: [id])
+  createdBy       User           @relation(fields: [createdById], references: [id])
+  items           SaleItem[]
+
+  @@index([businessId, createdAt])
+  @@index([businessId, paymentMethod])
+}
+
+model SaleItem {
+  id              String     @id @default(cuid())
+  saleId          String
+  businessId      String
+  itemType        String
+  serviceId       String?
+  productId       String?
+  barberId        String?
+  customerId      String?
+  name            String
+  quantity        Int        @default(1)
+  unitPrice       Decimal
+  totalPrice      Decimal
+
+  sale            Sale       @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  business        Business   @relation(fields: [businessId], references: [id])
+  service         Service?   @relation(fields: [serviceId], references: [id])
+  product         Product?   @relation(fields: [productId], references: [id])
+  barber          Barber?    @relation(fields: [barberId], references: [id])
+  customer        Customer?  @relation(fields: [customerId], references: [id])
+
+  @@index([saleId])
+  @@index([businessId])
+}
+
+model CashClosing {
+  id              String        @id @default(cuid())
+  businessId      String
+  userId          String
+  openingCash     Decimal       @default(0)
+  expectedCash    Decimal       @default(0)
+  countedCash     Decimal       @default(0)
+  difference      Decimal       @default(0)
+  notes           String?
+  openedAt        DateTime      @default(now())
+  closedAt        DateTime?
+
+  business        Business      @relation(fields: [businessId], references: [id])
+  user            User          @relation(fields: [userId], references: [id])
+
+  @@index([businessId, openedAt])
+}
+
+model ScheduleBlock {
+  id              String        @id @default(cuid())
+  businessId      String
+  barberId        String
+  startsAt        DateTime
+  endsAt          DateTime
+  reason          String?
+  createdAt       DateTime      @default(now())
+
+  business        Business      @relation(fields: [businessId], references: [id])
+  barber          Barber        @relation(fields: [barberId], references: [id])
+
+  @@index([businessId, startsAt])
+  @@index([barberId, startsAt])
+}
+
+model WaitlistEntry {
+  id              String        @id @default(cuid())
+  businessId      String
+  customerId      String
+  barberId        String?
+  serviceId       String?
+  preferredDate   DateTime?
+  preferredTime   String?
+  notes           String?
+  status          String        @default("PENDING")
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  business        Business      @relation(fields: [businessId], references: [id])
+  customer        Customer      @relation(fields: [customerId], references: [id])
+  barber          Barber?       @relation(fields: [barberId], references: [id])
+  service         Service?      @relation(fields: [serviceId], references: [id])
+
+  @@index([businessId, status])
+  @@index([businessId, preferredDate])
+}
