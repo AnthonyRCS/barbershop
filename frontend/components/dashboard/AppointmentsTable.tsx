@@ -30,14 +30,14 @@ export function AppointmentsTable({ data }: { data: DashboardAppointment[] }) {
         key: "id",
         label: "ID Reserva",
         render: (row: DashboardAppointment) => (
-          <span className="font-medium text-zinc-100">#{row.id.slice(-6)}</span>
+          <span className="font-medium text-foreground">#{row.id.slice(-6)}</span>
         ),
       },
       {
         key: "startTime",
         label: "Hora",
         render: (row: DashboardAppointment) => (
-          <span className="text-sm font-medium text-zinc-300">
+          <span className="text-sm font-medium text-foreground">
             {new Date(row.startTime).toLocaleTimeString("es", {
               hour: "2-digit",
               minute: "2-digit",
@@ -57,7 +57,7 @@ export function AppointmentsTable({ data }: { data: DashboardAppointment[] }) {
         key: "finalPrice",
         label: "Precio",
         render: (row: DashboardAppointment) => (
-          <span className="text-zinc-400 font-medium">
+          <span className="font-medium text-muted-foreground">
             {row.finalPrice ? formatCurrency(row.finalPrice, currency) : "—"}
           </span>
         ),

@@ -55,10 +55,10 @@ export default async function DashboardPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-white tracking-tight">
+          <h1 className="text-2xl font-bold text-foreground tracking-tight">
             Dashboard
           </h1>
-          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+          <p className="mt-1 text-sm text-muted-foreground">
             Resumen de actividad —{" "}
             {new Date().toLocaleDateString("es-PE", {
               weekday: "long",
@@ -75,17 +75,17 @@ export default async function DashboardPage() {
         {metrics.map(({ label, value, icon: Icon }) => (
           <div
             key={label}
-            className="flex items-center p-5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm"
+            className="flex items-center rounded-xl border border-border bg-card p-5 text-card-foreground shadow-sm"
           >
              <div className="flex-1 min-w-0">
-               <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-1 truncate">
+               <p className="mb-1 truncate text-sm font-medium text-muted-foreground">
                  {label}
                </p>
-               <p className="text-2xl font-bold text-neutral-900 dark:text-white truncate">
+               <p className="truncate text-2xl font-bold text-foreground">
                  {value}
                </p>
              </div>
-             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 ml-4 flex-shrink-0">
+             <div className="ml-4 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                <Icon className="h-6 w-6" strokeWidth={1.5} />
              </div>
           </div>
@@ -93,15 +93,15 @@ export default async function DashboardPage() {
       </div>
 
       {/* Upcoming appointments Table */}
-      <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm overflow-hidden flex flex-col">
-        <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 px-6 py-4 bg-neutral-50/50 dark:bg-neutral-800/30">
+      <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm">
+        <div className="flex items-center justify-between border-b border-border bg-muted/40 px-6 py-4">
           <div>
-            <h2 className="text-lg font-semibold text-neutral-900 dark:text-white tracking-tight">Próximas Citas</h2>
-            <p className="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">Las citas programadas para el día de hoy</p>
+            <h2 className="text-lg font-semibold text-foreground tracking-tight">Próximas Citas</h2>
+            <p className="mt-0.5 text-xs text-muted-foreground">Las citas programadas para el día de hoy</p>
           </div>
           <Link
             href="/appointments"
-            className="flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors bg-blue-50 dark:bg-blue-900/30 px-3 py-1.5 rounded-lg"
+            className="flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-primary/15"
           >
             Ver Calendario
             <ArrowUpRight className="h-4 w-4" />
